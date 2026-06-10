@@ -102,25 +102,22 @@ input {
 <!-- PAGE 4 -->
 <div class="page" id="p4">
     <h2>如果我们真的出去 💗</h2>
+
     <p>你想做什么？</p>
+    <input type="text" id="q1" placeholder="例如：吃饭 / 看电影 / 散步 / 打游戏...">
 
-    <input type="text" placeholder="例如：吃饭 / 看电影 / 散步 / 打游戏..." id="q1">
-    <input type="text" placeholder="你想去哪里？" id="q2">
-    <input type="text" placeholder="你喜欢什么氛围？" id="q3">
+    <p>你想去哪里？</p>
+    <input type="text" id="q2" placeholder="商场 / 咖啡店 / 随便都可以">
 
-    <button class="btn yes" onclick="go(5)">提交</button>
+    <p>你喜欢什么氛围？</p>
+    <input type="text" id="q3" placeholder="安静 / 热闹 / 随意">
+
+    <button class="btn yes" onclick="submitAnswers()">提交</button>
 </div>
 
 <!-- FINAL YES -->
 <div class="page" id="p5">
-    <h1>那就约定好了 ❤️</h1>
-
-    <p style="line-height:1.6;">
-        我会记住你写的每一个想法。<br><br>
-        不急、不催、慢慢来。<br><br>
-        只想和你有一个舒服的见面。<br><br>
-        🥺 如果你看到这一页，可以截图发给我吗？
-    </p>
+    <!-- filled by JS -->
 </div>
 
 <!-- NO RESULT -->
@@ -142,7 +139,7 @@ function go(page) {
     document.getElementById("p" + page).classList.add("active");
 }
 
-/* 💗 PLAYFUL RUNAWAY NO BUTTON */
+/* 💗 PLAYFUL RUNAWAY BUTTON */
 function setupNo(id, finalPage = 6) {
     const btn = document.getElementById(id);
     let count = 0;
@@ -181,6 +178,37 @@ function setupNo(id, finalPage = 6) {
     btn.onclick = dodge;
     btn.ontouchstart = dodge;
     btn.onmouseover = dodge;
+}
+
+/* SUBMIT + SHOW ANSWERS */
+function submitAnswers() {
+    const q1 = document.getElementById("q1").value || "（没写）";
+    const q2 = document.getElementById("q2").value || "（没写）";
+    const q3 = document.getElementById("q3").value || "（没写）";
+
+    document.getElementById("p5").innerHTML = `
+        <h1>那就约定好了 ❤️</h1>
+
+        <p style="line-height:1.6;">
+            <b>想做的事：</b><br>
+            ${q1}<br><br>
+
+            <b>想去的地方：</b><br>
+            ${q2}<br><br>
+
+            <b>喜欢的氛围：</b><br>
+            ${q3}<br><br>
+
+            --------------------<br><br>
+
+            我会记住这些 💗<br><br>
+            不急、不催、慢慢来。<br><br>
+
+            🥺 如果你看到这一页，可以截图发给我吗？
+        </p>
+    `;
+
+    go(5);
 }
 
 /* INIT */
